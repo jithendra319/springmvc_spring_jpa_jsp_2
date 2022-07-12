@@ -1,0 +1,34 @@
+//change the home controller 
+
+@Controller
+public class Homecontroller {
+	@Autowired
+	Studentrepo repo;
+	
+	@RequestMapping("/")
+	public String home() {
+		return "home.jsp";
+	}
+	
+	@RequestMapping("/insert")
+	public String insert(student s1) {
+		repo.save(s1);
+		return "home.jsp";
+	}
+	
+	@RequestMapping("/students")
+	@ResponseBody
+	public String getstudents() {
+		
+		return repo.findAll().toString();
+	}
+
+	@RequestMapping("/student/{rno}")
+	@ResponseBody
+	public String getstudent(@PathVariable("rno") int rno ) {
+		
+		return repo.findById(rno).toString();
+	}
+	
+	
+}
